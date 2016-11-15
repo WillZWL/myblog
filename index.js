@@ -20,12 +20,24 @@ app.use(session({
     cookie: {
         maxAge: config.session.maxAge
     },
-    // store: new MongoStore({
-    //     url:config.mongodb
-    // })
+    store: new MongoStore({
+        url:config.mongodb
+    })
 }));
 
 app.use(flash());
+
+app.locals.blog = {
+    title: pkg.name,
+    description: pkg.description
+}
+
+app.use(function (req, res, next) {
+    res.locals.user = req.session.user;
+    res.locals.success = req.flash('success').toSting();
+    res.locals.error = req.flash('error').toSting();
+    next();
+})
 
 routes(app);
 
