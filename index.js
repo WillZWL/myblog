@@ -6,6 +6,7 @@ var flash = require('connect-flash');
 var config = require('config-lite');
 var routes = require('./routes');
 var pkg = require('./package');
+var expressFormidable = require('express-formidable');
 
 var app = express();
 
@@ -26,6 +27,11 @@ app.use(session({
 }));
 
 app.use(flash());
+
+app.use(expressFormidable({
+    uploadDir: path.join(__dirname, 'public/img'),
+    keepExtensions: true
+}));
 
 app.locals.blog = {
     title: pkg.name,
