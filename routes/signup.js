@@ -3,7 +3,7 @@ var sha1 = require('sha1');
 var express = require('express');
 var router = express.Router();
 
-var UserModel = require('../models/user');
+var UserModel = require('../models/users');
 var checkNotLogin = require('../middlewares/check').checkNotLogin;
 
 // GET
@@ -19,7 +19,6 @@ router.post('/', checkNotLogin, function(req, res, next) {
     var avatar = req.files.avatar.path.split(path.sep).pop();
     var password = req.fields.password;
     var repassword = req.fields.repassword;
-    res.send(req.flash());
 
     // 校验参数
     try {
@@ -66,7 +65,7 @@ router.post('/', checkNotLogin, function(req, res, next) {
 
         req.flash('success', 'Sign Up Success');
 
-        req.redirect('/posts');
+        res.redirect('/posts');
     })
     .catch(function (e) {
         if (e.message.match('E11000 duplicate key')) {
