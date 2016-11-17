@@ -13,7 +13,10 @@ router.get('/', function(req, res, next) {
         });
     })
     .catch(next)
-    // res.render('posts');
+});
+
+router.get('/create', checkLogin, function(req, res, next) {
+    res.render('create');
 });
 
 router.post('/', checkLogin, function(req, res, next) {
@@ -47,10 +50,6 @@ router.post('/', checkLogin, function(req, res, next) {
         res.redirect(`/posts/${post._id}`)
     })
     .catch(next);
-});
-
-router.get('/create', checkLogin, function(req, res, next) {
-    res.render('create');
 });
 
 router.get('/:postId', function(req, res, next) {

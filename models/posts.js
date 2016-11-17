@@ -22,10 +22,10 @@ module.exports = {
     },
     getPostById: function getPostById(postId) {
         return Post
-            .find({ _id: postId })
-            .populate({ path: 'author', model: 'User'})
-            .addCreateAt()
-            .contentToHtml()
+            .findOne({ _id: postId })
+            .populate({ path: 'author', model: 'User' })
+            // .addCreatedAt()
+            // .contentToHtml()
             .exec();
     },
 
